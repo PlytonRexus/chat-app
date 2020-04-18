@@ -26,9 +26,9 @@ io.on('connection', (socket) => {
 
     socket.emit('count updated', count);
 
-    socket.on('send message', (msg, acknowledge) => {
+    socket.on('send message', (msg, callback) => {
         socket.broadcast.emit('receive message', msg);
-        acknowledge();
+        callback();
     });
 
     socket.on('send location', (loc) => {

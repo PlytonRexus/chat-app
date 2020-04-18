@@ -8,18 +8,30 @@ body {
     font: 14px Helvetica, Arial;
 }
 
+/* #dark-mode {
+    width: 100%;
+    background: black;
+    border: none;
+    font-size: 10;
+    padding: 0.5%;
+    color: white;
+    top: 0;
+    height: 10px;
+    position: sticky;
+} */
+
 form {
-    background: #4d2a2a;
+    background: lightgrey;
     padding: 3px;
     position: fixed;
     bottom: 0;
     width: 100%;
-    flex: flex;
+    height: 9%;
 }
 
 #m-box {
     width:78%;
-    color: white;
+    color: blue;
 }
 
 form input {
@@ -31,11 +43,11 @@ form input {
 
 form button:hover {
     background: rgb(200, 300, 300);
-    width: 10%;
+    width: 11%;
 }
 
 form button {
-    width: 9.5%;
+    width: 10%;
     background: rgb(130, 224, 255);
     border: none;
     border-radius: 10%;
@@ -46,6 +58,11 @@ form button {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    height: 89%;
+    top: initial;
+    position: fixed;
+    overflow: scroll;
+    width: 100%;
 }
 
 #messages li {
@@ -53,23 +70,69 @@ form button {
     /*margin-bottom: 1px;*/
 }
 
+.acknowledgement-cont {
+    align-content: right;
+    text-align: right;
+    margin-bottom: 1px;
+}
+
 .acknowledgement {
     font-family: "Courier New", Courier, monospace;
     font-size: 75%;
-    background-color: lightgreen;
+    background-color: lightgrey;
     margin-bottom: 1px;
+    text-align: right;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.receipt-cont {
+    margin-bottom: 1px;
+}
+
+.receipt {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 75%;
+    background-color: lightgrey;
+    margin-bottom: 1px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.not-my-msg-cont {
+    margin-bottom: 1px;
+    word-wrap: break-word;
 }
 
 .not-my-msg {
     background-color: lightblue;
-    border-bottom: white solid 1px;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    overflow-wrap: break-word;
+    /*border-bottom: white solid 1px;*/
+}
+
+.my-msg-container {
+    align-content: right;
+    text-align: right;
+    margin-bottom: 1px;
+    word-wrap: break-word;
 }
 
 .my-msg {
     background-color: lightgreen;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    overflow-wrap: break-word;
 }
 
 #msg-1 {
     font-weight: bold;
     background: lightgrey;
+}
+
+#receipt-1 {
+    width: 0px;
 }
