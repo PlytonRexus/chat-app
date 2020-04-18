@@ -1,0 +1,23 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "chat app using web sockets",
+  "main": "exp.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js",
+    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env node exp.js -e js,json,html,hbs,css"
+  },
+  "author": "Mihir Jichkar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "eruda": "^2.2.2",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.3"
+  }
+}
