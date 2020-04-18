@@ -3,6 +3,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>chat-app</title>
         <link type="text/css" rel="stylesheet" href="/public/css/socket.css"></link>
+        <link rel="stylesheet" type="text/css" href="/public/css/materialize.css"></link>
     </head>
 
     <body>
@@ -13,13 +14,22 @@
         <ul id="messages"></ul>
 
         <form action="">
-          <input id="m" autocomplete="off" />
+          <input id="m-box" autocomplete="off" />
           <button id="send-btn">Send</button>
+          <button id="location-btn">Check-In</button>
         </form>
+
+        <div id="modal-alert" class="modal">
+          <div class="modal-content">
+            <h4 id="user-prompt"></h4><br />
+          </div>
+        </div>
 
         <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
         <script src="/public/js/eruda.min.js"></script>
         <script>eruda.init();</script> 
         <script src="/public/js/socket.io.js"></script>
         <script src="/public/js/chat.js"></script>
+        <script src="/public/js/materialize.js"></script>
+
 </html>

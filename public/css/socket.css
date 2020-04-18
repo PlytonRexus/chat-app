@@ -17,16 +17,25 @@ form {
     flex: flex;
 }
 
+#m-box {
+    width:78%;
+    color: white;
+}
+
 form input {
     border: 0;
     padding: 10px;
-    width: 89%;
+    width: 78%;
     margin-right: 0.5%;
-    border-radius: 10%;
+}
+
+form button:hover {
+    background: rgb(200, 300, 300);
+    width: 10%;
 }
 
 form button {
-    width: 9%;
+    width: 9.5%;
     background: rgb(130, 224, 255);
     border: none;
     border-radius: 10%;
@@ -41,8 +50,26 @@ form button {
 
 #messages li {
     padding: 5px 10px;
+    /*margin-bottom: 1px;*/
 }
 
-#messages li:nth-child(odd) {
-    background: #eee;
+.acknowledgement {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 75%;
+    background-color: lightgreen;
+    margin-bottom: 1px;
+}
+
+.not-my-msg {
+    background-color: lightblue;
+    border-bottom: white solid 1px;
+}
+
+.my-msg {
+    background-color: lightgreen;
+}
+
+#msg-1 {
+    font-weight: bold;
+    background: lightgrey;
 }

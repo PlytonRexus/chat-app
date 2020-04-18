@@ -5,7 +5,7 @@
   "main": "exp.js",
   "scripts": {
     "test": "mocha",
-    "start": "node server.js",
+    "start": "node exp.js",
     "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env node exp.js -e js,json,html,hbs,css"
   },
   "author": "Mihir Jichkar",

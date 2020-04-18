@@ -26,16 +26,22 @@ io.on('connection', (socket) => {
 
     socket.emit('count updated', count);
 
-    socket.on('send message', (msg) => {
-        io.emit('receive message', msg);
+    socket.on('send message', (msg, acknowledge) => {
+        socket.broadcast.emit('receive message', msg);
+        acknowledge();
+    });
+
+    socket.on('send location', (loc) => {
+    	console.log(loc);
+    	socket.broadcast.emit('receive location', loc);
     });
 
     socket.on('increment',() => {
-        console.log('Incremented.');
         count += 1;
-        console.log(count);
+        console.log('Incremented.', count);
         io.emit('count updated', count);
     });
+
     socket.on('disconnect', () => {
         console.log('Connection terminated.');
     });
