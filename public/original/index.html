@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>chat-app</title>
+    <link type="text/css" rel="stylesheet" href="/public/original/css/socket.css">
+    </link>
+    <link rel="stylesheet" href="/public/original/css/join.css">
+    </link>
+    <link rel="stylesheet" type="text/css" href="/public/original/css/materialize.css">
+    </link>
+</head>
+
+<body>
+    <div class="centred_form">
+        <div class="centred_form_box">
+            <div>
+                <h1>Join In!</h1>
+            </div>
+            <div>
+                <form action="/" method="POST" class="centred_form_inside">
+                    <input type="text" name="username" id="username" placeholder="Type in a username" required>
+                    <input type="password" name="password" id="password" placeholder="Password - Enter existing or create one." required>
+                    <input type="text" name="room" id="room" placeholder="Type in the room to join." required>
+                    <button type="submit" id="submit">Join Room</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/eruda.min.js"></script>
+    <script>
+        eruda.init();
+    </script>
+    <script src="/public/original/js/join.js"></script>
+    
+</body>
+
+</html>

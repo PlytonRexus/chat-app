@@ -6,14 +6,15 @@
   "scripts": {
     "test": "mocha",
     "start": "node exp.js",
-    "dev": "./node_modules/.bin/env-cmd -f ./config/dev.env node exp.js -e js,json,html,hbs,css"
+    "dev": "node exp.js"
   },
   "author": "Mihir Jichkar",
   "license": "MIT",
   "dependencies": {
+    "bad-words": "^3.0.3",
+    "eruda": "^2.2.2",
     "express": "^4.17.1",
-    "socket.io": "^2.3.0",
-    "eruda": "^2.2.2"
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",

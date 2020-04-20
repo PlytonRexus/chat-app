@@ -1,52 +1,36 @@
 const express = require ('express');
-const socketio = require ('socket.io');
 const http = require ('http');
 const path = require ('path');
 
 const exp = express();
 const server = http.createServer(exp);
-const io = socketio(server);
+module.exports = {server};
+
+const sockets = require ('./controllers/sockets');
 
 const port = process.env.PORT || 3000;
-const indexHTML = path.join(__dirname, "public", "index.html");
+const originalHTML = path.join(__dirname, 'public', 'original', 'index.html');
+const newHTML = path.join(__dirname, 'public', 'index.html');
 
+exp.use('/chat', express.static('public/original/chat'));
+exp.use('/public', express.static('public'));
 exp.use('/public/js', express.static('public/js'));
 exp.use('/public/css', express.static('public/css'));
+exp.use('/public/original', express.static('public/original'));
+exp.use('/public/original/css', express.static('public/original/css'));
+exp.use('/public/original/js', express.static('public/original/js'));
+exp.use('/public/assets/img', express.static('public/assets/img'));
 
-exp.get("/", (req, res) => {
-    res.sendFile(indexHTML);
+exp.get('/', (req, res) => {
+    res.sendFile(originalHTML);
 });
 
-var count = 0;
-
-io.on('connection', (socket) => {
-    console.log('New webSocket connection established.');
-
-    socket.emit('new connection', 'Welcome to the chat page!');
-
-    socket.emit('count updated', count);
-
-    socket.on('send message', (msg, callback) => {
-        socket.broadcast.emit('receive message', msg);
-        callback();
-    });
-
-    socket.on('send location', (loc) => {
-    	console.log(loc);
-    	socket.broadcast.emit('receive location', loc);
-    });
-
-    socket.on('increment',() => {
-        count += 1;
-        console.log('Incremented.', count);
-        io.emit('count updated', count);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Connection terminated.');
-    });
+exp.get('/new', (req, res) => {
+    res.sendFile(newHTML);
 });
+
+sockets.ioConnection;
 
 server.listen(port, () => {
-    console.log("HTTP server in Express is active on port " + port + ".");
+    console.log('HTTP server in Express is active on port ' + port + '.');
 });

@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font: 14px Helvetica, Arial;
+}
+
+/* #dark-mode {
+    width: 100%;
+    background: black;
+    border: none;
+    font-size: 10;
+    padding: 0.5%;
+    color: white;
+    top: 0;
+    height: 10px;
+    position: sticky;
+} */

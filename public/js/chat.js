@@ -1,186 +1,76 @@
 var socket = io();
 
-const wholeBody = document.querySelector('.whole');
-const messageBox = document.querySelector('#messages');
-const sendBtn = document.querySelector('#send-btn');
-const locationBtn = document.querySelector('#location-btn');
-const modalAlert = document.querySelector('#modal-alert');
-const inputField = document.querySelector('#m-box');
-const darkBtn = document.querySelector('#dark-mode');
-var number;
-var myLocation;
+const messageArea = document.querySelector('.message-display-area');
+const mapLink = document.querySelector('#mapLink');
 
-var dark = false;
-
-function error () {
-    console.log('Could not retrieve location.');
-    throw new Error ('Could not retrieve location.');
-}
-
-function getLocation () {
-    if (!navigator.geolocation) {
-        alert ('Browser does not support geolocation.');
-    }
-    else {
-        navigator.geolocation.getCurrentPosition((position) => {
-            return position;
-        },
-        error);
-    }
-}
-
-// const addNewMessage = (message, date) => {
-//     var li = document.createElement('li');
-//     number = messageBox.children.length + 1;
-//     li.setAttribute('id', 'msg-' + number);
-//     li.setAttribute('class', 'not-my-msg');
-//     li.appendChild(document.createTextNode(message));
-//     messageBox.appendChild(li);
-//     addReceipt(date);
-// }
-
-const addNewMessage = (message, date) => {
-    var li = document.createElement('li');
-    var span = document.createElement('span');
-    number = messageBox.children.length + 1;
-    li.setAttribute('id', 'msg-' + number);
-    li.setAttribute('class', 'not-my-msg-cont');
-    span.setAttribute('class', 'not-my-msg');
-    span.appendChild(document.createTextNode(message));
-    li.appendChild(span);
-    messageBox.appendChild(li);
-    addReceipt(date);
-}
-
-// const addMyMessage = (message) => {
-//     var li = document.createElement('li');
-//     number = messageBox.children.length + 1;
-//     li.setAttribute('id', 'my-msg-' + number);
-//     li.setAttribute('class', 'my-msg');
-//     li.appendChild(document.createTextNode(message));
-//     messageBox.appendChild(li);
-// }
-
-const addMyMessage = (message) => {
-    var li = document.createElement('li');
-    var span = document.createElement('span');
-    number = messageBox.children.length + 1;
-    li.setAttribute('id', 'my-msg-' + number);
-    li.setAttribute('class', 'my-msg-container');
-    span.setAttribute('class', 'my-msg');
-    span.appendChild(document.createTextNode(message));
-    li.appendChild(span);
-    messageBox.appendChild(li);
-}
-
-// const addAcknowledgement = (message, date) => {
-//     var li = document.createElement('li');
-//     number = messageBox.children.length + 1;
-//     li.setAttribute('id', 'acknowledgement-' + number);
-//     li.setAttribute('class', 'acknowledgement');
-//     li.appendChild(document.createTextNode(message + ' ' + date));
-//     messageBox.appendChild(li);
-// }
-
-const addAcknowledgement = (message, date) => {
-    var li = document.createElement('li');
-    var span = document.createElement('span');
-    number = messageBox.children.length + 1;
-    li.setAttribute('id', 'acknowledgement-' + number);
-    span.setAttribute('id', 'acknowledgement-text-' + number);
-    li.setAttribute('class', 'acknowledgement-cont');
-    span.setAttribute('class', 'acknowledgement');
-    span.appendChild(document.createTextNode(message + ' ' + date));
-    li.appendChild(span);
-    messageBox.appendChild(li);
-}
-
-// const addReceipt = (date) => {
-//     var li = document.createElement('li');
-//     number = messageBox.children.length + 1;
-//     li.setAttribute('id', 'receipt' + number);
-//     li.setAttribute('class', 'receipt');
-//     li.appendChild(document.createTextNode(date));
-//     messageBox.appendChild(li);
-// }
-
-const addReceipt = (date) => {
-    var li = document.createElement('li');
-    var span = document.createElement('span');
-    number = messageBox.children.length + 1;
-    li.setAttribute('id', 'receipt-' + number);
-    span.setAttribute('id', 'receipt-text-' + number);
-    if (number == 1) {
-        span.setAttribute('style', 'width: 0%');
-    }
-    li.setAttribute('class', 'receipt-cont');
-    span.setAttribute('class', 'receipt');
-    span.appendChild(document.createTextNode(date));
-    li.appendChild(span);
-    messageBox.appendChild(li);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    var modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals);
-});
-
-socket.on('count updated', (count) => {
-    console.log('The count has been updated.', count);
-});
-
-socket.on('new connection', (message) => {
-    addNewMessage(message, new Date().toString());
-});
-
-socket.on('receive message', (message) => {
-    addNewMessage(message, new Date().toString());
-    document.querySelector('#msg-' + number).scrollIntoView();
-});
-
-socket.on('receive location', (location) => {
-    addNewMessage(location, new Date().getTime().toString());
-    console.log(location);
-});
+//// TEMPLATES
+const messageTemplate = document.querySelector('#message-template').innerHTML;
+const locationMessageTemplate = document.querySelector('#location-message-template').innerHTML;
 
 sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const msg = inputField.value;
-    inputField.value = '';
-    if (msg == '') {
-      return 0;
+    const timestamp = new Date().getTime();
+    msgObject = {
+        msg,
+        timestamp
     }
-    addMyMessage(msg, new Date().toString());
-    socket.emit('send message', msg, () => {
-        addAcknowledgement('Delivered.', new Date().toString());
-    });
+    if (msg == '') {
+        return 0;
+    }
 
-    document.querySelector('#my-msg-' + number).scrollIntoView();
-    inputField.focus();
+    socket.emit('send message', msgObject, () => {
+        inputField.focus();
+        inputField.value = '';
+        return printMessage(msgObject);
+    });
+});
+
+socket.on('receive message', (message) => {
+    printMessage(message);
+});
+
+socket.on('new connection', (message) => {
+    printMessage(message);
+});
+
+socket.on('receive location', (location) => {
+    const latitude = location.coords.latitude;
+    const longitude = location.coords.longitude;
+
+    link = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+
+    var data = {
+        mapMessage: 'Location of Sender.',
+        mapLink: link
+    };
+
+    const html = Mustache.render(locationMessageTemplate, data);
+    messageArea.insertAdjacentHTML('beforeend', html);
 });
 
 locationBtn.addEventListener('click', (e) => {
     e.preventDefault();
     myLocation = getLocation();
-    if (myLocation) {socket.emit('send location', myLocation);}
-});
-
-darkBtn.addEventListener('mouseover', (e) => {
-    e.preventDefault();
-    if (dark) {
-        messageBox.style.backgroundColor = 'black';
-        document.body.style.backgroundColor = 'black';
-        document.li.style.backgroundColor = 'black';
-        document.input.style.backgroundColor = 'black';
-        darkBtn.innerHTML = 'Light';
-        dark = true;
+    if (myLocation) {
+        socket.emit('send location', myLocation);
     }
     else {
-        messageBox.style.backgroundColor = 'white';
-        document.body.style.backgroundColor = 'white';
-        document.li.style.backgroundColor = 'white';
-        document.input.style.backgroundColor = 'white';
-        darkBtn.innerHTML = 'Dark';
-        dark = false;
+        alert('Some error occured while fetching location.');
     }
-})
+});
+
+const printableTime = (timestamp) => {
+    return moment(timestamp).format('ddd, MMM Do, hh:mm A');
+}
+
+function printMessage(msgObject) {
+    var data = {
+        message: msgObject.msg,
+        time: printableTime(msgObject.timestamp)
+    };
+    console.log(msgObject);
+    console.log(data.msg);
+    const html = Mustache.render(messageTemplate, data);
+    messageArea.insertAdjacentHTML('beforeend', html);
+}

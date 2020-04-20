@@ -1,0 +1,172 @@
+/* Chat Container */
+.chat {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Chat Sidebar Styles */
+
+.chat_sidebar {
+    padding: 1%;
+    height: 100vh;
+    color: white;
+    background-color: #0c0d14;
+    width: 20vw;
+    overflow-y: scroll;
+    overflow: hidden;
+}
+
+.room_title {
+    font-weight: 400;
+    font-size: 22px;
+    background-color: whitesmoke;
+    padding: 24px;
+}
+
+.list_title {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 4px;
+    padding: 12px 24px 0 24px;
+}
+
+.users {
+    list-style-type: none;
+    font-weight: 300;
+    padding: 12px 24px 0 24px;
+}
+
+/* Main Chat Page */
+.chat_main {
+    width: 79vw;
+}
+
+.chat_name {
+    height: 5vh;
+    border-bottom: 4px #16182c;
+    background-color: #cc7676;
+    text-align: center;
+}
+
+.name {
+    color: black;
+    font-family: fantasy;
+    font-size: x-large;
+}
+
+form {
+    background: lightgrey;
+    padding: 3px;
+    position: fixed;
+    bottom: 0;
+    width: 80%;
+    height: 8.5%;
+}
+
+#m-box {
+    width: 78%;
+    color: blue;
+}
+
+form input {
+    border: 0;
+    padding: 10px;
+    width: 78%;
+    margin-right: 0.5%;
+}
+
+form button:hover {
+    background: rgb(200, 300, 300);
+    width: 11%;
+}
+
+form button {
+    width: 10%;
+    background: rgb(130, 224, 255);
+    border: none;
+    border-radius: 10%;
+    padding: 10px;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 83%;
+    top: initial;
+    position: fixed;
+    overflow-y: scroll;
+    width: 80%;
+}
+
+#messages li {
+    padding: 5px 10px;
+    /*margin-bottom: 1px;*/
+}
+
+.acknowledgement-cont {
+    align-content: right;
+    text-align: right;
+    margin-bottom: 1px;
+}
+
+.acknowledgement {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 75%;
+    background-color: lightgrey;
+    margin-bottom: 1px;
+    text-align: right;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.receipt-cont {
+    margin-bottom: 1px;
+}
+
+.receipt {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 75%;
+    background-color: lightgrey;
+    margin-bottom: 1px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.not-my-msg-cont {
+    margin-bottom: 1px;
+    word-wrap: break-word;
+}
+
+.not-my-msg {
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    overflow-wrap: break-word;
+    /*border-bottom: white solid 1px;*/
+}
+
+.my-msg-container {
+    align-content: right;
+    text-align: right;
+    margin-bottom: 1px;
+    word-wrap: break-word;
+}
+
+.my-msg {
+    background-color: lightgreen;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 1px;
+    overflow-wrap: break-word;
+}
+
+#not-my-msg-1 {
+    font-weight: bold;
+    background: lightgrey;
+}
+
+#receipt-1 {
+    width: 0px;
+}

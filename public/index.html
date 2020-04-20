@@ -2,38 +2,50 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>chat-app</title>
-        <link type="text/css" rel="stylesheet" href="/public/css/socket.css"></link>
+        <link type="text/css" rel="stylesheet" href="/public/css/main.css"></link>
         <link rel="stylesheet" type="text/css" href="/public/css/materialize.css"></link>
     </head>
 
     <body>
         <div class="whole">
-            <p>
-                <!-- <pre>The index page of the chat-app project.</pre> -->
-            </p>
-            <!-- <button id="dark-mode">Dark</button> -->
-            
-                <ul id="messages"></ul>
+            <div class="message-display-area"></div>
 
-                <form action="" class="messaging-form">
-                    <input id="m-box" autocomplete="off" required></input>
-                    <button id="send-btn" type="submit" name="submit">Send</button>
-                    <button id="location-btn">Check-In</button>
-                </form>
+            <ul id="messages"></ul>
 
-
-            <div id="modal-alert" class="modal">
-              <div class="modal-content">
-                <h4 id="user-prompt"></h4><br />
-              </div>
-            </div>
+            <form action="" class="messaging-form">
+                <input id="m-box" autocomplete="off" required></input>
+                <button id="send-btn" type="submit" name="submit">Send</button>
+                <button id="location-btn">Check-In</button>
+            </form>
         </div>
 
+        <script id="message-template" type="text/html">
+            <div>
+                <p>{{message}}</p>
+                <small>{{time}}</small>
+            </div>
+        </script>
+
+        <script id="location-message-template" type="text/html">
+            <div>
+                <p><a id="mapLink" target="_blank" href="{{mapLink}}">{{mapMessage}}</a></p>
+                <small>{{time}}</small>
+            </div>
+        </script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js" charset="utf-8"></script>
+
+        <script src="/public/js/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.3/qs.min.js" charset="utf-8"></script>
 
         <script src="/public/js/eruda.min.js"></script>
         <script>eruda.init();</script>
+
         <script src="/public/js/socket.io.js"></script>
+        <script src="/public/js/delivery-functions.js" charset="utf-8"></script>
         <script src="/public/js/chat.js"></script>
+
         <script src="/public/js/materialize.js"></script>
 
 </html>

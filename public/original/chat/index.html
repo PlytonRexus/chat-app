@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>chat-app</title>
+    <link type="text/css" rel="stylesheet" href="/public/original/css/socket.css">
+    </link>
+    <link rel="stylesheet" href="/public/original/css/chat.css">
+    </link>
+    <link rel="stylesheet" type="text/css" href="/public/original/css/materialize.css">
+    </link>
+</head>
+
+<body>
+    <div class="chat">
+        <div class="chat_sidebar">
+            <ul class="chats"></ul>
+        </div>
+
+        <div class="chat_main">
+            <div class="chat_name">
+                <span class="name">Some Chat Page</span>
+            </div>
+            <!-- <button id="dark-mode">Dark</button> -->
+
+            <ul id="messages"></ul>
+
+            <form action="" class="messaging-form">
+                <input id="m-box" autocomplete="off" required></input>
+                <button id="send-btn" type="submit" name="submit">Send</button>
+                <button id="location-btn">Check-In</button>
+            </form>
+
+            <div id="modal-alert" class="modal">
+                <div class="modal-content">
+                    <h4 id="user-prompt"></h4><br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/js/moment.min.js"></script>
+    <script src="/public/original/js/qs.min.js" charset="utf-8"></script>
+
+    <script src="/public/js/eruda.min.js"></script>
+    <script>
+        eruda.init();
+    </script>
+    
+    <script src="/public/js/socket.io.js"></script>
+    <script src="/public/original/js/queries.js"></script>
+    <script src="/public/original/js/chat.js"></script>
+    <script src="/public/js/materialize.js"></script>
+</body>
+
+</html>
