@@ -36,7 +36,7 @@ exports.ioConnection =
             else {
                 socket.join(newroom);
 
-                socket.emit('new connection', {msg: generateMessage(newroom), rooms: getAllRooms(socket.id)});
+                socket.emit('new connection', {msg: generateMessage(newroom), rooms: getAllRooms(socket.id), username: 'chat-app'});
 
                 socket.broadcast.to(newroom).emit('new member', {
                     username: username,

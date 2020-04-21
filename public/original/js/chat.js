@@ -29,7 +29,7 @@ function getLocation () {
     }
 }
 
-const addNewMessage = (message, date) => {
+const addNewMessage = (message, date, username) => {
     var li = document.createElement('li');
     var span = document.createElement('span');
     number = messageBox.children.length + 1;
@@ -39,7 +39,7 @@ const addNewMessage = (message, date) => {
     span.appendChild(document.createTextNode(message));
     li.appendChild(span);
     messageBox.appendChild(li);
-    addReceipt('user1', date);
+    addReceipt(username, date);
 }
 
 const addMyMessage = (message) => {
@@ -79,7 +79,7 @@ const addReceipt = (username, date) => {
     span.setAttribute('id', 'receipt-text-' + number);
     li.setAttribute('class', 'receipt-cont');
     span.setAttribute('class', 'receipt');
-    b.appendChild(document.createTextNode(username));
+    b.appendChild(document.createTextNode(username.toString().toUpperCase()));
     span.appendChild(b);
     span.appendChild(document.createTextNode(` ${date}`));
     li.appendChild(span);
@@ -107,7 +107,7 @@ socket.on('new connection', (object) => {
     const room = object.msg.msg;
     const rooms = object.rooms.rooms;
     chatTitle.innerHTML = `${room}`;
-    addNewMessage(`Welcome to ${room}!`, printableTime(object.msg.timestamp));
+    addNewMessage(`Welcome to ${room}, ${username}!`, printableTime(object.msg.timestamp), object.username);
     loadRooms(rooms);
 });
 
@@ -121,7 +121,8 @@ socket.on('user left', ({username, room}) => {
 socket.on('receive message', (msgObject) => {
     //moment([2007, 0, 29]).fromNow();
     const message = msgObject.msg;
-    addNewMessage(message, printableTime(msgObject.timestamp));
+    const receivedFrom = msgObject.username;
+    addNewMessage(message, printableTime(msgObject.timestamp), receivedFrom);
     document.querySelector('#receipt-' + number).scrollIntoView();
 });
 
@@ -147,6 +148,7 @@ sendBtn.addEventListener('click', (e) => {
     const msg = inputField.value;
     const timestamp = new Date().getTime();
     const msgObject = {
+        username,
         msg,
         timestamp
     }
