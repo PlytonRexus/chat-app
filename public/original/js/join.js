@@ -2,7 +2,7 @@ const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 const room = document.querySelector('#room');
 const submit = document.querySelector('#submit');
-const usersUrl = 'http://localhost:3000/users';
+const usersUrl = '/users';
 
 const fetchURLnew = async (obj) => {
 	const token = obj.token;
