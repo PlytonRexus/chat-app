@@ -5,11 +5,13 @@ const locationBtn = document.querySelector('#location-btn');
 const modalAlert = document.querySelector('#modal-alert');
 const inputField = document.querySelector('#m-box');
 const chatTitle = document.querySelector('.name');
+const chatsBox = document.querySelector('.chats');
 var number = 0;
 var myLocation;
 
 window.onload = () => {
     inputField.focus();
+    loadRooms();
 }
 
 function error () {
@@ -27,6 +29,47 @@ function getLocation () {
         },
         error);
     }
+}
+
+const loadRooms = async () => {
+    const allRooms = await getRooms(username);
+    arrangeRooms(allRooms);
+}
+
+const getRooms = async (username) => {
+    var url = location.protocol + '//' + location.hostname + ':' + location.port + '/rooms/';
+    var authorization = location.pathname.toString();
+    authorization = authorization.replace('/chat/', '');
+    authorization = authorization.replace('/', '');
+    const response = await fetch(url, {
+        headers: {
+            authorization
+        }
+    });
+
+    if (response.ok) {
+        const json = await response.json();
+        return json.rooms;
+    }
+    else {
+        return ['No Rooms Found or some error occured.'];
+    }
+}
+
+const arrangeRooms = (allRooms) => {
+    const appendToChatsBox = (item, index) => {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        li.setAttribute('id', 'room' + (index + 1).toString());
+        li.setAttribute('class', 'room-cont');
+        li.setAttribute('class', 'room_title');
+        a.setAttribute('class', 'room');
+        a.setAttribute('href', location.href.replace(room, item.room).toString());
+        a.appendChild(document.createTextNode(item.room.toString().toUpperCase()));
+        li.appendChild(a);
+        chatsBox.appendChild(li);
+    }
+    allRooms.forEach(appendToChatsBox);
 }
 
 const addNewMessage = (message, date, username) => {
@@ -86,10 +129,6 @@ const addReceipt = (username, date) => {
     messageBox.appendChild(li);
 }
 
-const loadRooms = (rooms) => {
-    console.log(rooms);
-}
-
 const printableTime = (timestamp) => {
     return moment(timestamp).format('ddd, MMM Do, hh:mm A');
 }
@@ -108,7 +147,6 @@ socket.on('new connection', (object) => {
     const rooms = object.rooms.rooms;
     chatTitle.innerHTML = `${room}`;
     addNewMessage(`Welcome to ${room}, ${username}!`, printableTime(object.msg.timestamp), object.username);
-    loadRooms(rooms);
 });
 
 socket.on('user left', ({username, room}) => {

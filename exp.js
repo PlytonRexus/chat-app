@@ -14,6 +14,7 @@ const sockets = require ('./controllers/sockets');
 const join = require ('./routes/join');
 const users = require ('./routes/users');
 const chat = require ('./routes/chat');
+const rooms = require ('./routes/rooms');
 
 const port = process.env.PORT || 3000;
 const newHTML = path.join(__dirname, 'public', 'index.html');
@@ -47,6 +48,7 @@ exp.use('/public/assets/img', express.static('public/assets/img'));
 exp.use('/', join);
 exp.use('/users', users);
 exp.use('/chat', chat);
+exp.use('/rooms', rooms);
 
 exp.get('/new', (req, res) => {
     res.sendFile(newHTML);

@@ -186,7 +186,7 @@ const checkRoomAndCred = async (username, password, req) => {
 		const index = users[0].rooms.findIndex((val, ind, arr) => {
 			return val.room == req.body.room;
 		});
-		if (index != -1) {
+		if (index == -1) {
 			users[0].rooms.push({room: req.body.room});
 			await users[0].save();
 		}
