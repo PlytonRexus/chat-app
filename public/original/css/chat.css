@@ -46,6 +46,7 @@
     border-bottom: 4px #16182c;
     background-color: #cc7676;
     text-align: center;
+    width: 80vw;
 }
 
 .name {
@@ -96,6 +97,7 @@ form button {
     top: initial;
     position: fixed;
     overflow-y: scroll;
+    overflow: hidden;
     width: 80%;
 }
 
