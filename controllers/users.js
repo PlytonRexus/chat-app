@@ -6,7 +6,7 @@ const users = [];
 const addUser = ({ id, username, room, password }) => {
     username = username.trim().toLowerCase();
     room = room.trim().toLowerCase();
-    
+
     if (filter.isProfane(username) || filter.isProfane(room)) {
         return {
             error: 'Please do not use derogatory constructs.'
@@ -39,6 +39,14 @@ const addUser = ({ id, username, room, password }) => {
     users.push(user);
 
     return { user, newroom: room };
+}
+
+const updateUser = (id, username) => {
+    const index = users.findIndex((user) => {
+        return user.username == username;
+    });
+
+    users[index].id = id;
 }
 
 const removeUser = (id) => {
@@ -86,6 +94,7 @@ const getAllRooms = (id) => {
 }
 
 module.exports = {
+    users,
     addUser,
     removeUser,
     getUser,

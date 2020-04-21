@@ -1,18 +1,27 @@
 const express = require ('express');
 const http = require ('http');
 const path = require ('path');
+const morgan = require ('morgan');
+
+require('./db/mongoose');
 
 const exp = express();
 const server = http.createServer(exp);
 module.exports = {server};
 
 const sockets = require ('./controllers/sockets');
+const join = require ('./routes/join');
+const users = require ('./routes/users');
+const chat = require ('./routes/chat');
 
 const port = process.env.PORT || 3000;
-const originalHTML = path.join(__dirname, 'public', 'original', 'index.html');
 const newHTML = path.join(__dirname, 'public', 'index.html');
 
-exp.use('/chat', express.static('public/original/chat'));
+exp.use(morgan('dev'));
+
+exp.use(express.json());
+exp.use(express.urlencoded({ extended: true }));
+
 exp.use('/public', express.static('public'));
 exp.use('/public/js', express.static('public/js'));
 exp.use('/public/css', express.static('public/css'));
@@ -21,9 +30,9 @@ exp.use('/public/original/css', express.static('public/original/css'));
 exp.use('/public/original/js', express.static('public/original/js'));
 exp.use('/public/assets/img', express.static('public/assets/img'));
 
-exp.get('/', (req, res) => {
-    res.sendFile(originalHTML);
-});
+exp.use('/', join);
+exp.use('/users', users);
+exp.use('/chat', chat);
 
 exp.get('/new', (req, res) => {
     res.sendFile(newHTML);

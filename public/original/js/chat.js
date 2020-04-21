@@ -107,7 +107,7 @@ socket.on('new connection', (object) => {
     const room = object.msg.msg;
     const rooms = object.rooms.rooms;
     chatTitle.innerHTML = `${room}`;
-    addNewMessage(`Welcome to ${room}!`, printableTime(msgObject.timestamp));
+    addNewMessage(`Welcome to ${room}!`, printableTime(object.msg.timestamp));
     loadRooms(rooms);
 });
 
