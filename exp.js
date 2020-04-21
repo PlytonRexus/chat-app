@@ -21,18 +21,20 @@ const newHTML = path.join(__dirname, 'public', 'index.html');
 const allowedOrigins = ['http://localhost:3000', 'https://calm-everglades-51344.herokuapp.com'];
 
 exp.use(morgan('dev'));
-exp.use(cors({
-	origin: function(origin, callback){    
-		// allow requests with no origin 
-		// (like mobile apps or curl requests)
-		if(!origin) return callback(null, true);
-		if(allowedOrigins.indexOf(origin) === -1){
-			var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-			return callback(new Error(msg), false);
-		}
-		return callback(null, true);
-	}
-}));
+exp.use(cors());
+
+// {
+// 	origin: function(origin, callback){    
+// 		// allow requests with no origin 
+// 		// (like mobile apps or curl requests)
+// 		if(!origin) return callback(null, true);
+// 		if(allowedOrigins.indexOf(origin) === -1){
+// 			var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+// 			return callback(new Error(msg), false);
+// 		}
+// 		return callback(null, true);
+// 	}
+// }
 
 exp.use(express.json());
 exp.use(express.urlencoded({ extended: true }));
