@@ -95,7 +95,7 @@ form {
 }
 
 #m-box {
-    width: 78%;
+    width: 76%;
     color: blue;
 }
 
@@ -216,4 +216,30 @@ form button {
 
 #receipt-1 {
     width: 0px;
+}
+
+@media screen and (max-width: 480px) {
+  .chat_sidebar {
+    width: 0vw;
+    display: none;
+    }
+  form {
+    width: 100vw;
+  }
+
+  #messages {
+    width: 100vw;
+  }
+
+  .chat_name {
+    width: 100vw;
+  }
+
+  #m-box {
+    width: 67%;
+  }
+
+  form button {
+    width: 15%;
+  }
 }
