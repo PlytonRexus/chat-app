@@ -61,6 +61,7 @@ const arrangeRooms = (allRooms) => {
         var li = document.createElement('li');
         var a = document.createElement('a');
         li.setAttribute('id', 'room' + (index + 1).toString());
+        if (item.room == room) {a.setAttribute('id', 'active_chat');}
         li.setAttribute('class', 'room-cont');
         li.setAttribute('class', 'room_title');
         a.setAttribute('class', 'room');

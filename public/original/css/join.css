@@ -1,5 +1,6 @@
 .centred_form {
-    background-color: #0c0d14;
+    background: url('/public/assets/img/name.jpg');
+    background-size: cover;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -14,7 +15,7 @@
     background-color: whitesmoke;
     padding: 24px;
     height: 70vh;
-    width: 70vw;
+    width: 60vw;
     text-align: center;
 }
 
@@ -35,8 +36,13 @@
 
 .centred_form_inside input {
     margin-bottom: 16px;
-    width: 100%;
+    width: 80%;
+    color-rendering: pink;
 }
+/*
+.input_centred {
+    width: 80%;
+}*/
 
 /*.centred_form_inside {
     height: 68%;

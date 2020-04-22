@@ -3,6 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>chat-app</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+    </style> 
     <link type="text/css" rel="stylesheet" href="/public/original/css/socket.css">
     </link>
     <link rel="stylesheet" href="/public/original/css/join.css">
@@ -19,9 +22,9 @@
             </div>
             <div>
                 <form action="/" method="POST" class="centred_form_inside">
-                    <input type="text" name="username" id="username" placeholder="Type in a username" required>
-                    <input type="password" name="password" id="password" placeholder="Password - Enter existing or create one." required>
-                    <input type="text" name="room" id="room" placeholder="Type in the room to join." required>
+                    <input type="text" name="username" class="input_centred" id="username" placeholder="Type in a username" required>
+                    <input type="password" name="password" class="input_centred" id="password" placeholder="Password - Enter existing or create one." required>
+                    <input type="text" name="room" id="room" class="input_centred" placeholder="Type in the room to join." required>
                     <button type="submit" id="submit">Join Room</button>
                 </form>
             </div>

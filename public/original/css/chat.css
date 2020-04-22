@@ -16,24 +16,48 @@
     overflow: hidden;
 }
 
-.room_title {
-    font-weight: 400;
-    font-size: 22px;
-    background-color: whitesmoke;
-    padding: 24px;
-}
-
 .list_title {
+    font-family: 'Satisfy', cursive;
     font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 4px;
+    font-size: 32px;
+    margin-bottom: 20px;
     padding: 12px 24px 0 24px;
 }
 
 .users {
-    list-style-type: none;
     font-weight: 300;
-    padding: 12px 24px 0 24px;
+    padding: 12px 30px 0 30px;
+}
+
+.chats li {
+    margin: 15px;
+}
+
+.room_title {
+    font-family: 'Bangers', cursive;
+    font-size: 26px;
+    height: 25px;
+    word-wrap: break-word;
+}
+
+.room_title a {
+    color: pink;
+}
+
+.room_title a:hover {
+    color: lightblue;
+}
+
+.room_title a:visited {
+    color: pink;
+}
+
+.room_title a:active {
+    color: red;
+}
+
+#active_chat {
+    color: lightgreen;
 }
 
 /* Main Chat Page */
@@ -42,16 +66,22 @@
 }
 
 .chat_name {
-    height: 5vh;
-    border-bottom: 4px #16182c;
+    height: 5.5vh;
     background-color: #cc7676;
     text-align: center;
     width: 80vw;
+    color: white;
+}
+
+.chat_name span{
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: white;
 }
 
 .name {
     color: black;
-    font-family: fantasy;
+    font-family: 'Roboto Mono', monospace;
     font-size: x-large;
 }
 
@@ -70,10 +100,23 @@ form {
 }
 
 form input {
-    border: 0;
+    border-bottom: 3px solid grey;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
     padding: 10px;
     width: 78%;
     margin-right: 0.5%;
+    background: lightgrey;
+    box-shadow: 0;
+    transition: border-bottom 1s;
+}
+
+form input:focus {
+    border-bottom: 3px solid lightblue;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
 }
 
 form button:hover {
@@ -93,12 +136,14 @@ form button {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    height: 83%;
+    height: 86%;
     top: initial;
     position: fixed;
     overflow-y: scroll;
     overflow: hidden;
     width: 80%;
+    background: url('/public/assets/img/name.jpg');
+    background-size: cover;
 }
 
 #messages li {
@@ -165,8 +210,8 @@ form button {
 }
 
 #not-my-msg-1 {
+    margin-top: 5px;
     font-weight: bold;
-    background: lightgrey;
 }
 
 #receipt-1 {

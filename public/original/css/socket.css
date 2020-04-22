@@ -8,6 +8,18 @@ body {
     font: 14px Helvetica, Arial;
 }
 
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 10px;
+}
+
 /* #dark-mode {
     width: 100%;
     background: black;
