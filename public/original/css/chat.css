@@ -219,27 +219,31 @@ form button {
 }
 
 @media screen and (max-width: 480px) {
-  .chat_sidebar {
-    width: 0vw;
-    display: none;
+    .chat_sidebar {
+        width: 0vw;
+        display: none;
     }
-  form {
-    width: 100vw;
-  }
+    form {
+        width: 100vw;
+    }
 
-  #messages {
-    width: 100vw;
-  }
+    #messages {
+        width: 100vw;
+    }
 
-  .chat_name {
-    width: 100vw;
-  }
+    .chat_name {
+        width: 100vw;
+    }
 
-  #m-box {
-    width: 67%;
-  }
+    #m-box {
+        width: 67%;
+    }
 
-  form button {
-    width: 15%;
-  }
+    form button {
+        width: 15%;
+    }
+
+    form input {
+    font-size: 20px;
+    }
 }
