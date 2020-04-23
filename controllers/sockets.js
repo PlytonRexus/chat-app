@@ -56,6 +56,10 @@ exports.ioConnection =
 
                 socket.on('disconnect', () => {
                     console.log('Connection terminated.');
+                    socket.broadcast.to(newroom).emit('user left', {
+                        username: username,
+                        room: newroom
+                    });
                 });
 
                 socket.on('send message', async (msgObject, callback) => {

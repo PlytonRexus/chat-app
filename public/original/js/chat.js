@@ -13,6 +13,7 @@ window.onload = async () => {
     loadRooms();
     await loadHistory();
     inputField.focus();
+    document.getElementById("overlay").style.display = "none";
 }
 
 function error () {

@@ -218,25 +218,25 @@ async function generateJWT (user, room) {
 	return token;
 }
 
-const signin = async (req, res) => {
-	console.log('Reached signin function()');
-	res.json({'message': 'dummy_response_8'});
-	const cred = await checkRoomAndCred(req.body.user.username, req.body.user.password, req);
-	console.log (cred.user);
-	if (cred.match) {
-		console.log("Auth Passed!");
-		const token = await generateJWT(cred.user);
-		// const token = await cred.user.generateJWT();
-		res.status(200).json({
-			"message": "Success!",
-			token,
-			newroom: req.body.room
-		});
-	}
-	else {
-		res.status(400).json({"message": "Auth not passed!"});
-	}
-}
+// const signin = async (req, res) => {
+// 	console.log('Reached signin function()');
+// 	res.json({'message': 'dummy_response_8'});
+// 	const cred = await checkRoomAndCred(req.body.user.username, req.body.user.password, req);
+// 	console.log (cred.user);
+// 	if (cred.match) {
+// 		console.log("Auth Passed!");
+// 		const token = await generateJWT(cred.user, req.body.room);
+// 		// const token = await cred.user.generateJWT();
+// 		res.status(200).json({
+// 			"message": "Success!",
+// 			token,
+// 			newroom: req.body.room
+// 		});
+// 	}
+// 	else {
+// 		res.status(400).json({"message": "Auth not passed!"});
+// 	}
+// }
 
 exports.signin = async (req, res) => {
 	const cred = await checkRoomAndCred(req.body.user.username, req.body.user.password, req);
@@ -244,7 +244,7 @@ exports.signin = async (req, res) => {
 	if (cred.match) {
 		console.log("Auth Passed!");
 		// const token = await generateJWT(cred.user);
-		const token = await cred.user.generateJWT();
+		const token = await generateJWT(cred.user, req.body.room);
 		res.status(200).json({
 			"message": "Success!",
 			token,
