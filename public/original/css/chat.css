@@ -153,16 +153,14 @@
     color: white;
 }
 
+.name a {
+    color: white;
+}
+
 .chat_name span{
     font-family: 'Dancing Script', cursive;
     font-size: 28px;
     color: white;
-}
-
-.name {
-    color: black;
-    font-family: 'Roboto Mono', monospace;
-    font-size: x-large;
 }
 
 .messaging-form {
@@ -300,11 +298,67 @@
     width: 0px;
 }
 
+@media screen and (min-width: 480px) {
+    .closebtn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+}
+
 @media screen and (max-width: 480px) {
+    .closebtn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 45px;
+        font-size: 60px;
+    }
+
+    .room_query_form input {
+        width: 75%;
+    }
+
+    .room_query_form input {
+        width: 75%;
+    }
+
+    .room_query_form button {
+        width: 20%;
+    }
+
+    .room_query_form button:hover {
+        width: 20%;
+    }
     .chat_sidebar {
         width: 0vw;
         display: none;
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        overflow-x: hidden;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.9);
+        transition: display 1.5s;
     }
+
+    /*   
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0, 0.9);
+        transition: 0.5s;
+   */
+
     .messaging-form {
         width: 100vw;
     }

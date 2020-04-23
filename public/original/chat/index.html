@@ -24,6 +24,7 @@
     
     <div class="chat">
         <div class="chat_sidebar">
+            <a href="javascript:void(0)" class="closeBtn">&times;</a>
             <h2 class="list_title">your chat rooms</h2>
             <form class="room_query_form">
                 <input type="room_query" name="room_query" class="room_add_bar" placeholder="Enter name of room">
@@ -34,7 +35,7 @@
 
         <div class="chat_main">
             <div class="chat_name">
-                <span class="name"></span>
+                <span class="name"><a class="menu" href="javascript:void(0)"></a></span>
             </div>
             <!-- <button id="dark-mode">Dark</button> -->
 
@@ -59,6 +60,7 @@
     <script src="/public/original/js/socket.io.js"></script>
     <script src="/public/original/js/queries.js"></script>
     <script src="/public/original/js/chat.js"></script>
+    <script type="text/javascript" src="/public/original/js/utils.js"></script>
 
     <script src="/public/original/js/moment.min.js"></script>
     <!-- <script src="/public/js/materialize.js"></script> -->

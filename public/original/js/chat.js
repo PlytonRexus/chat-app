@@ -4,7 +4,7 @@ const sendBtn = document.querySelector('#send-btn');
 const locationBtn = document.querySelector('#location-btn');
 const modalAlert = document.querySelector('#modal-alert');
 const inputField = document.querySelector('#m-box');
-const chatTitle = document.querySelector('.name');
+const chatTitle = document.querySelector('.menu');
 const chatsBox = document.querySelector('.chats');
 var number = 0;
 var sent;
