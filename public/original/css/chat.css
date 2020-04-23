@@ -167,7 +167,7 @@ form button {
     overflow-y: scroll;
     overflow: hidden;
     width: 80%;
-    background: url('/public/assets/img/name.jpg');
+    background: url('/public/assets/img/name-min.jpg');
     background-size: cover;
     background-attachment: fixed;
 }
