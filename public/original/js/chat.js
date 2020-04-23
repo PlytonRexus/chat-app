@@ -106,11 +106,14 @@ const arrangeRooms = (allRooms) => {
         var li = document.createElement('li');
         var a = document.createElement('a');
         li.setAttribute('id', 'room' + (index + 1).toString());
-        if (item.room == room) {a.setAttribute('id', 'active_chat');}
         li.setAttribute('class', 'room-cont');
         li.setAttribute('class', 'room_title');
         a.setAttribute('class', 'room');
         a.setAttribute('href', location.href.replace(room, item.room).toString());
+        if (item.room == room) {
+            a.setAttribute('id', 'active_chat');
+            a.setAttribute('href', '#');
+        }
         a.appendChild(document.createTextNode(item.room.toString().toUpperCase()));
         li.appendChild(a);
         chatsBox.appendChild(li);
@@ -178,11 +181,6 @@ const addReceipt = (username, date) => {
 const printableTime = (timestamp) => {
     return moment(timestamp).format('ddd, MMM Do, hh:mm A');
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-    var modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals);
-});
 
 socket.on('count updated', (count) => {
     console.log('The count has been updated.', count);
@@ -260,6 +258,11 @@ locationBtn.addEventListener('click', (e) => {
     myLocation = getLocation();
     if (myLocation) {socket.emit('send location', myLocation);}
 });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     var modals = document.querySelectorAll('.modal');
+//     M.Modal.init(modals);
+// });
 
 // const setSVG = () => {
 //     var svg = document.createElement('svg');
