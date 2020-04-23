@@ -1,4 +1,19 @@
 /* Overlay */
+@font-face {
+    font-family: 'Satisfy';
+    src: url('/public/assets/fonts/Satisfy-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Dancing Script';
+    src: url('/public/assets/fonts/DancingScript-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: 'Bangers';
+    src: url('/public/assets/fonts/Bangers-Regular.ttf');
+}
+
 #overlay {
   position: fixed;
   display: none;
@@ -81,7 +96,7 @@
     color: red;
 }
 
-#active_chat {
+.active_chat {
     color: lightgreen;
 }
 
@@ -165,7 +180,7 @@ form button {
     top: initial;
     position: fixed;
     overflow-y: scroll;
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 80%;
     background: url('/public/assets/img/name-min.jpg');
     background-size: cover;
@@ -174,6 +189,7 @@ form button {
 
 #messages li {
     padding: 5px 10px;
+    line-height: 2.3;
     /*margin-bottom: 1px;*/
 }
 

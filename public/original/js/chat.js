@@ -7,6 +7,7 @@ const inputField = document.querySelector('#m-box');
 const chatTitle = document.querySelector('.name');
 const chatsBox = document.querySelector('.chats');
 var number = 0;
+var sent;
 var myLocation;
 
 window.onload = async () => {
@@ -21,6 +22,20 @@ function error () {
     throw new Error ('Could not retrieve location.');
 }
 
+function addOverlay () {
+    document.getElementById('overlay-text').innerHTML = 'You are offline.\ '
+    'This page will be refreshed when network is established.';
+    document.getElementById('overlay').style.display = 'block';
+}
+
+function resendAndRefresh () {
+    // if (!sent) {
+    //     if (document.getElementById('my-msg-text-' + number).value) {
+
+    //     }
+    // }
+    window.location.reload();
+}
 function getLocation () {
     if (!navigator.geolocation) {
         alert ('Browser does not support geolocation.');
@@ -103,22 +118,35 @@ const getRooms = async (username) => {
 }
 
 const arrangeRooms = (allRooms) => {
+    var room_ids = [];
     const appendToChatsBox = (item, index) => {
         var li = document.createElement('li');
         var a = document.createElement('a');
-        li.setAttribute('id', 'room' + (index + 1).toString());
+
+        var url = 
+
+        li.setAttribute('id', 'room_' + (index).toString());
         li.setAttribute('class', 'room-cont');
         li.setAttribute('class', 'room_title');
         a.setAttribute('class', 'room');
-        a.setAttribute('href', location.href.replace(room, item.room).toString());
+
         if (item.room == room) {
-            a.setAttribute('id', 'active_chat');
+            a.setAttribute('class', 'active_chat');
+            var room_id = 'chat_' + (index).toString();
             a.setAttribute('href', '#');
         }
+        else {
+            var room_id = 'chat_' + (index).toString();
+            li.setAttribute('id', );
+            a.setAttribute('href', location.href.replace(room, item.room).toString());
+        }
+
         a.appendChild(document.createTextNode(item.room.toString().toUpperCase()));
         li.appendChild(a);
         chatsBox.appendChild(li);
+
     }
+
     allRooms.forEach(appendToChatsBox);
 }
 
@@ -142,6 +170,7 @@ const addMyMessage = (message) => {
     li.setAttribute('id', 'my-msg-' + number);
     li.setAttribute('class', 'my-msg-container');
     span.setAttribute('class', 'my-msg');
+    span.setAttribute('id', 'my-msg-text-' + number);
     span.appendChild(document.createTextNode(message));
     li.appendChild(span);
     messageBox.appendChild(li);
@@ -227,6 +256,7 @@ socket.on('new member', ({username, room}) => {
 
 sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    sent = false;
 
     const msg = inputField.value;
 
@@ -247,12 +277,16 @@ sendBtn.addEventListener('click', (e) => {
     addMyMessage(msg);
 
     socket.emit('send message', msgObject, () => {
+        sent = true;
         addAcknowledgement('Delivered.', printableTime(msgObject.timestamp));
         document.querySelector('#acknowledgement-' + number).scrollIntoView();
     });
 
     inputField.focus();
 });
+
+window.addEventListener('offline', addOverlay);
+window.addEventListener('online', resendAndRefresh);
 
 locationBtn.addEventListener('click', (e) => {
     e.preventDefault();
