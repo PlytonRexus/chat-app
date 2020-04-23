@@ -11,7 +11,6 @@ exports.auth = async (req, res, next) => {
             throw new Error();
         }
         
-        console.log(token);
         req.user = user;
         req.utils = token;
         next();

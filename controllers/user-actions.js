@@ -240,7 +240,7 @@ async function generateJWT (user, room) {
 
 exports.signin = async (req, res) => {
 	const cred = await checkRoomAndCred(req.body.user.username, req.body.user.password, req);
-	console.log (cred.user);
+	// console.log (cred.user);
 	if (cred.match) {
 		console.log("Auth Passed!");
 		// const token = await generateJWT(cred.user);

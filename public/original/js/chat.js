@@ -151,6 +151,7 @@ const arrangeRooms = (allRooms) => {
                 messageBox.innerHTML = '';
                 room = eventRoom.innerText.toLowerCase();
                 socket.emit('room changed', room);
+                chatTitle.innerHTML = `${room}`;
                 await loadHistory(room);
                 chatsBox.innerHTML = '';
                 await loadRooms(username);

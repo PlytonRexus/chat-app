@@ -39,7 +39,7 @@ exports.ioConnection =
             var newroom = room;
 
             socket.on('room changed', (nextroom) => {
-                socket.join(nextroom);
+                // socket.join(nextroom);
                 newroom = nextroom;
             });
             // The previous line was added just to accomodate the lack of a 'newroom'
