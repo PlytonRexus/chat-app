@@ -65,10 +65,12 @@ const arrangeHistory = (history) => {
         var a = document.createElement('a');
         if(item.sender != username) {
             addNewMessage(item.content, printableTime(item.sentAt), item.sender);
+            document.querySelector('#receipt-' + number).scrollIntoView();
         }
         else {
             addMyMessage(item.content);
             addAcknowledgement('Delivered.', printableTime(item.sentAt));
+            document.querySelector('#acknowledgement-' + number).scrollIntoView();
         }
     }
     history.forEach(appendToMessageBox);
