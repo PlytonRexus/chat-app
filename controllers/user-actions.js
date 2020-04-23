@@ -64,7 +64,7 @@ exports.createUser = async (req, res, next) => {
 		try {
 			await newUser.save();
 			var savedUser = await User.findOne({username: newUser.username});
-			const token = await generateJWT(savedUser);
+			const token = await generateJWT(savedUser, req.body.room);
 			
 			res.status(200).json({
 				"message": "Created User Successfully!",
@@ -202,11 +202,17 @@ const checkRoomAndCred = async (username, password, req) => {
 	return cred;
 }
 
-async function generateJWT (user) {
+async function generateJWT (user, room) {
 	var token = await jwt.sign(
-		{_id: user["_id"]},
-		"secret",
-		{expiresIn: "4 days"});
+		{
+			_id: user["_id"],
+			username: user.username,
+			room: room
+		},
+		process.env.JWT_SECRET,
+		{
+			expiresIn: "4 days"
+		});
 	user.tokens = user.tokens.concat({token});
 	await user.save();
 	return token;

@@ -6,7 +6,7 @@ const usersUrl = '/users';
 
 const fetchURLnew = async (obj) => {
 	const token = obj.token;
-	var path = location.protocol + '//' + location.hostname + ':' + location.port + '/chat/' + token + '/' + '?room=' + obj.newroom + '&username=' + username.value;;
+	var path = location.protocol + '//' + location.hostname + ':' + location.port + '/chat/' + token + '/' + '?room=' + obj.newroom;
 	console.log(path);
 	return path;
 }

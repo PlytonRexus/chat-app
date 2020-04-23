@@ -22,22 +22,13 @@ const fileFilter = function fileFilter (req, file, callback)
 
 const upload = multer({limits: {fileSize: 5242880}, fileFilter});
 
-const dummy = (req, res, next) => {
-	if (!req.body) {
-		res.json({'message': 'dummy_response'});
-	}
-	else {
-		next();
-	}
-}
-
 router.get("/", auth.auth, users.getAll);
 
 router.get("/me", auth.auth, users.getProfile);
 
 router.get("/:id", auth.auth, users.getById);
 
-router.post("/", dummy, users.createUser, users.signin);
+router.post("/", users.createUser, users.signin);
 
 // router.delete("/:id", auth.auth, users.deleteUser);
 

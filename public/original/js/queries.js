@@ -1,6 +1,13 @@
 var socket = io();
 
-const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true});
+var token = location.pathname.toString();
+    token = token.replace('/chat/', '');
+    token = token.replace('/', '');
+
+const decoded = jwt_decode(token);
+
+const {username, room} = decoded;
+
 socket.emit('join', {room, username}, (error) => {
     location.href = '/';
 });

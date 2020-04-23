@@ -9,9 +9,10 @@ const chatsBox = document.querySelector('.chats');
 var number = 0;
 var myLocation;
 
-window.onload = () => {
-    inputField.focus();
+window.onload = async () => {
     loadRooms();
+    await loadHistory();
+    inputField.focus();
 }
 
 function error () {
@@ -29,6 +30,48 @@ function getLocation () {
         },
         error);
     }
+}
+
+const loadHistory = async () => {
+    console.log('Loading, please wait...!');
+    const history =  await getHistory(room);
+    arrangeHistory(history);
+}
+
+const getHistory = async (room) => {
+    var url = `${location.protocol}//${location.hostname}:${location.port}/chat/history/${room}`;
+    var authorization = location.pathname.toString();
+    authorization = authorization.replace('/chat/', '');
+    authorization = authorization.replace('/', '');
+    const response = await fetch(url, {
+        headers: {
+            authorization
+        }
+    });
+
+    if (response.ok) {
+        const json = await response.json();
+        return json.history;
+    }
+
+    else {
+        return ['No History Found or some error occured.'];
+    }
+}
+
+const arrangeHistory = (history) => {
+    const appendToMessageBox = (item, index) => {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        if(item.sender != username) {
+            addNewMessage(item.content, printableTime(item.sentAt), item.sender);
+        }
+        else {
+            addMyMessage(item.content);
+            addAcknowledgement('Delivered.', printableTime(item.sentAt));
+        }
+    }
+    history.forEach(appendToMessageBox);
 }
 
 const loadRooms = async () => {
@@ -185,17 +228,20 @@ sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
     const msg = inputField.value;
+
+    if (msg == '') {
+      return 0;
+    }
+
     const timestamp = new Date().getTime();
+
     const msgObject = {
         username,
         msg,
         timestamp
-    }
+    };
+
     inputField.value = '';
-    
-    if (msg == '') {
-      return 0;
-    }
 
     addMyMessage(msg);
 
