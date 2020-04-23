@@ -11,8 +11,8 @@ var sent;
 var myLocation;
 
 window.onload = async () => {
-    loadRooms();
-    await loadHistory();
+    loadRooms(username);
+    await loadHistory(room);
     inputField.focus();
     document.getElementById("overlay").style.display = "none";
 }
@@ -48,7 +48,7 @@ function getLocation () {
     }
 }
 
-const loadHistory = async () => {
+const loadHistory = async (room) => {
     console.log('Loading, please wait...!');
     const history =  await getHistory(room);
     arrangeHistory(history);
@@ -92,7 +92,7 @@ const arrangeHistory = (history) => {
     history.forEach(appendToMessageBox);
 }
 
-const loadRooms = async () => {
+const loadRooms = async (username) => {
     const allRooms = await getRooms(username);
     arrangeRooms(allRooms);
 }
@@ -131,20 +131,31 @@ const arrangeRooms = (allRooms) => {
         a.setAttribute('class', 'room');
 
         if (item.room == room) {
-            a.setAttribute('class', 'active_chat');
-            var room_id = 'chat_' + (index).toString();
+            a.setAttribute('id', 'active_chat');
             a.setAttribute('href', '#');
         }
+
         else {
             var room_id = 'chat_' + (index).toString();
-            li.setAttribute('id', );
-            a.setAttribute('href', location.href.replace(room, item.room).toString());
+            a.setAttribute('id', room_id);
+            a.setAttribute('href', '#');
         }
 
         a.appendChild(document.createTextNode(item.room.toString().toUpperCase()));
         li.appendChild(a);
         chatsBox.appendChild(li);
-
+        if (item.room != room) {
+            var eventRoom = document.getElementById('chat_' + index);
+            eventRoom.addEventListener('click', async (e) => {
+                e.preventDefault();
+                messageBox.innerHTML = '';
+                room = eventRoom.innerText.toLowerCase();
+                socket.emit('room changed', room);
+                await loadHistory(room);
+                chatsBox.innerHTML = '';
+                await loadRooms(username);
+            });
+        }
     }
 
     allRooms.forEach(appendToChatsBox);
@@ -256,7 +267,6 @@ socket.on('new member', ({username, room}) => {
 
 sendBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    sent = false;
 
     const msg = inputField.value;
 
@@ -269,15 +279,17 @@ sendBtn.addEventListener('click', (e) => {
     const msgObject = {
         username,
         msg,
-        timestamp
+        timestamp,
+        inRoom: room
     };
+
+    console.log(room, msgObject.inRoom);
 
     inputField.value = '';
 
     addMyMessage(msg);
 
     socket.emit('send message', msgObject, () => {
-        sent = true;
         addAcknowledgement('Delivered.', printableTime(msgObject.timestamp));
         document.querySelector('#acknowledgement-' + number).scrollIntoView();
     });

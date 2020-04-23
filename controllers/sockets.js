@@ -26,7 +26,7 @@ function getSavable(msgObject) {
     savable['sender'] = msgObject.username;
     savable['sentAt'] = msgObject.timestamp;
     savable['content'] = msgObject.msg;
-    savable['room'] = msgObject.room;
+    savable['room'] = msgObject.inRoom;
     return savable;
 }
 
@@ -37,6 +37,11 @@ exports.ioConnection =
         socket.on('join', ({ username, room }, callback) => {
             console.log(username, room);
             var newroom = room;
+
+            socket.on('room changed', (nextroom) => {
+                socket.join(nextroom);
+                newroom = nextroom;
+            });
             // The previous line was added just to accomodate the lack of a 'newroom'
             // variable and has no study behind its existence.
             // Review following code before embedding it permanently.
@@ -63,7 +68,7 @@ exports.ioConnection =
                 });
 
                 socket.on('send message', async (msgObject, callback) => {
-                    msgObject['room'] = newroom;
+                    newroom = msgObject['room'];
                     var savable = getSavable(msgObject);
                     var newMessage = new Message (savable);
                     await newMessage.save();

@@ -53,7 +53,6 @@
     background-color: #0c0d14;
     width: 20vw;
     overflow-y: scroll;
-    overflow: hidden;
 }
 
 .list_title {
@@ -61,7 +60,7 @@
     font-weight: 500;
     font-size: 32px;
     margin-bottom: 20px;
-    padding: 12px 24px 0 24px;
+    padding: 12px 18px 0 18px;
 }
 
 .users {
@@ -96,7 +95,7 @@
     color: red;
 }
 
-.active_chat {
+#active_chat {
     color: lightgreen;
 }
 

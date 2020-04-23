@@ -6,7 +6,7 @@ var token = location.pathname.toString();
 
 const decoded = jwt_decode(token);
 
-const {username, room} = decoded;
+var {username, room} = decoded;
 
 socket.emit('join', {room, username}, (error) => {
     location.href = '/';
