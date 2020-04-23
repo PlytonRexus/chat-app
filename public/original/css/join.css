@@ -1,5 +1,6 @@
 .centred_form {
     background: url('/public/assets/img/branch.jpg');
+    background-attachment: fixed;
     background-size: cover;
     width: 100vw;
     height: 100vh;
