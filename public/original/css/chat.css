@@ -55,6 +55,47 @@
     overflow-y: scroll;
 }
 
+.room_query_form {
+    display: flex;
+    padding: 10px;
+}
+
+.room_query_form input {
+    width: 12vw;
+    margin-right: 10px;
+    box-shadow: none;
+    background-color: #0c0d14;
+    color: whitesmoke;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 2px solid lightgrey;
+    border-top: 0;
+    transition: border-bottom 1.5s;
+}
+
+.room_query_form input:focus {
+    border-bottom: 2px solid lightblue;
+}
+
+.room_query_form button {
+    padding: 8px;
+    width: 4vw;
+    box-shadow: none;
+    border-radius: 25px;
+    border: none;
+    background-color: lightblue;
+    cursor: pointer;
+    transition: background-color 1s;
+}
+
+.room_query_form button:hover {
+    background-color: pink;
+}
+
+.room_query_form button:active {
+    background-color: red;
+}
+
 .list_title {
     font-family: 'Satisfy', cursive;
     font-weight: 500;
@@ -124,7 +165,7 @@
     font-size: x-large;
 }
 
-form {
+.messaging-form {
     background: lightgrey;
     padding: 3px;
     position: fixed;
@@ -138,7 +179,7 @@ form {
     color: blue;
 }
 
-form input {
+.messaging-form input {
     border-bottom: 3px solid grey;
     border-top: 0;
     border-right: 0;
@@ -147,23 +188,23 @@ form input {
     width: 78%;
     margin-right: 0.5%;
     background: lightgrey;
-    box-shadow: 0;
+    box-shadow: none;
     transition: border-bottom 1s;
 }
 
-form input:focus {
+.messaging-form input:focus {
     border-bottom: 3px solid lightblue;
     border-top: 0;
     border-right: 0;
     border-left: 0;
 }
 
-form button:hover {
+.messaging-form button:hover {
     background: rgb(200, 300, 300);
     width: 11%;
 }
 
-form button {
+.messaging-form button {
     width: 10%;
     background: rgb(130, 224, 255);
     border: none;
@@ -264,7 +305,7 @@ form button {
         width: 0vw;
         display: none;
     }
-    form {
+    .messaging-form {
         width: 100vw;
     }
 
@@ -280,11 +321,11 @@ form button {
         width: 67%;
     }
 
-    form button {
+    .messaging-form button {
         width: 15%;
     }
 
-    form input {
-    font-size: 20px;
+    .messaging-form input {
+        font-size: 20px;
     }
 }

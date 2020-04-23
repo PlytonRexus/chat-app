@@ -53,9 +53,7 @@ exports.getById = async (req, res) => {
 
 exports.createUser = async (req, res, next) => {
 	var does_user_exist = await userExists(req, res);
-	console.log('Reached beginning of createUser.');
 	if (does_user_exist == true) {
-		console.log('Reached next function of createUser.');
 		next();
 	}
 	else {
