@@ -130,7 +130,7 @@ room_search_bar.addEventListener('keyup', (e) => {
 
 list_title.addEventListener('click', async (e) => {
     chatsBox.innerHTML = '';
-    loadRooms();
+    await loadRooms();
 })
 
 room_add_btn.addEventListener('click', async (e) => {

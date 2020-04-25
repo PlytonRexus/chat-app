@@ -1,4 +1,5 @@
 window.onload = async () => {
+    chatsBox.innerHTML = '';
     loadRooms(username);
     await loadHistory(room);
     inputField.focus();

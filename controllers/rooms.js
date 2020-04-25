@@ -3,8 +3,8 @@ const User = require ('../models/User');
 
 exports.saveRoomAndAddRoom = async (room, username) => {
     const foundRoomInRooms = await Room.findOne({name:room});
-    console.log(foundRoomInRooms);
-    if (!foundRoomInRooms) {
+    console.log('foundRoomInRooms:', foundRoomInRooms);
+    if (foundRoomInRooms == null) {
         var newRoom = new Room ({
             name: room,
             active: true
@@ -13,12 +13,12 @@ exports.saveRoomAndAddRoom = async (room, username) => {
     }
     const user = await User.findOne({username});
     if (user) {
-        var foundRoom = user.rooms.find((val, ind, array) => {
-            return val==room;
+        var foundRoom = user.rooms.findIndex((val, ind, array) => {
+            return val.room == room;
         });
-        console.log(foundRoom);
-        if (foundRoom) {
-            return 0;
+        console.log('foundRoom',foundRoom);
+        if (foundRoom >= 0) {
+            return 'Nothing to save.';
         }
         else {
             user.rooms.push({room});
