@@ -146,7 +146,3 @@ room_add_btn.addEventListener('click', async (e) => {
     chatsBox.innerHTML = '';
     await loadRooms(username);
 });
-
-window.addEventListener('unload', (e) => {
-    alert('Bye, bye!');
-});
