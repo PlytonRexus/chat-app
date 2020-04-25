@@ -1,10 +1,13 @@
-const mongoose = required ('mongoose');
+const mongoose = require ('mongoose');
 
 const RoomSchema = new mongoose.Schema({
     name: {
         type: String,
         trim: true,
         required: true
+    },
+    active: {
+        type: Boolean
     }
 },
 {

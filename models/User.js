@@ -11,7 +11,9 @@ var TokenSchema = new mongoose.Schema({
 
 var roomSchema = new mongoose.Schema({
 	room: {
-		type: String
+		type: String,
+		required: true,
+		unique: true
 	}
 });
 

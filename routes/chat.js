@@ -4,6 +4,7 @@ const path = require ('path');
 
 const auth = require ('../middleware/auth');
 const Message = require ('../models/Message');
+const userActions = require ('../controllers/user-actions');
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ const paramsToHeaders = (req, res, next) => {
 router.get('/', auth.auth, (req, res) => {
 	res.json({
 		url: req.url.href + '/' + req.utils.token,
-		token: req.utils.token
+		token: req.utils
 	});
 });
 
@@ -44,5 +45,7 @@ router.get('/history/:room', auth.auth, async (req, res) => {
         res.status(200).json({content: 'Some error occured while fetching history'});
     }
 });
+
+router.post('/img', userActions.uploadMessage);
 
 module.exports = router;

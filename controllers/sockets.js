@@ -10,6 +10,7 @@ const {
     getAllRooms
 } = require ('./users');
 const Message = require ('../models/Message');
+const roomsController = require ('../controllers/rooms');
 
 const io = socketio(server);
 
@@ -38,8 +39,9 @@ exports.ioConnection =
             console.log(username, room);
             var newroom = room;
 
-            socket.on('room changed', (nextroom) => {
+            socket.on('room changed', async (nextroom) => {
                 // socket.join(nextroom);
+                await roomsController.saveRoomAndAddRoom(nextroom, username);
                 newroom = nextroom;
             });
             // The previous line was added just to accomodate the lack of a 'newroom'

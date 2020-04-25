@@ -55,6 +55,11 @@
     overflow-y: scroll;
 }
 
+.sidebar_header {
+    /*position: absolute;*/
+    /*height: 20vh;*/
+}
+
 .room_query_form {
     display: flex;
     padding: 10px;
@@ -99,9 +104,10 @@
 .list_title {
     font-family: 'Satisfy', cursive;
     font-weight: 500;
-    font-size: 32px;
-    margin-bottom: 20px;
-    padding: 12px 18px 0 18px;
+    font-size: 30px;
+    margin-bottom: 5px;
+    padding: 12px 12px 0 12px;
+    color: white;
 }
 
 .users {
@@ -195,6 +201,19 @@
     border-top: 0;
     border-right: 0;
     border-left: 0;
+}
+
+#image-btn {
+    width: 10%;
+    background: rgb(130, 224, 255);
+    border: none;
+    border-radius: 10%;
+    padding: 10px;
+}
+
+#image-btn:hover {
+    background: rgb(200, 300, 300);
+    width: 11%;
 }
 
 .messaging-form button:hover {

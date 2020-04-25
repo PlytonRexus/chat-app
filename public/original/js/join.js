@@ -27,7 +27,7 @@ submit.addEventListener('click', async (e) => {
 
     const body = JSON.stringify({user, room: room.value});
 
-    console.log(body);
+    // console.log(body);
 
     console.log('This should always load.', usersUrl);
 

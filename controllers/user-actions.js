@@ -380,3 +380,24 @@ exports.publicAvatar = async (req, res) => {
 		res.status(404).send();
 	}
 }
+
+async function getSavable (msgObject) {
+    var savable = new Object;
+    msgObject.image = await sharpValidation(msgObject.image.buffer, msgObject.image.mimetype);
+    savable['sender'] = msgObject.username;
+    savable['sentAt'] = msgObject.timestamp;
+    savable['content'] = msgObject.msg;
+    savable['room'] = msgObject.inRoom;
+    savable['image'] = msgObject.image;
+    savable['format'] = msgObject.image.mimetype;
+    return savable;
+}
+
+exports.uploadMessage = async (req, res) => {
+	var msgObject = req.body.msgObject;
+	console.log(msgObject);
+	var savable = getSavable(msgObject);
+	var newMessage = new Message (savable);
+    await newMessage.save();
+	res.status(201).json({"message": "File uploaded!"});
+}

@@ -15,21 +15,26 @@
 
 <body>
     <div id="overlay">
+        <img src="" id="overlay-image">
+        <a href="javascript:void(0)" class="closeBtn" id="closeOverlay">&times;</a>
       <div id="overlay-text">Loading, please wait...!</div>
     </div>
 
     <script type="text/javascript">
         document.getElementById("overlay").style.display = "block";
+        document.getElementById("closeOverlay").style.display = 'none';
     </script>
     
     <div class="chat">
         <div class="chat_sidebar">
-            <a href="javascript:void(0)" class="closeBtn">&times;</a>
-            <h2 class="list_title">your chat rooms</h2>
-            <form class="room_query_form">
-                <input type="room_query" name="room_query" class="room_add_bar" placeholder="Enter name of room">
-                <button type="submit" class="room_submit_bar">Add</button>
-            </form>
+            <div class="sidebar_header">
+                <a href="javascript:void(0)" id="close-btn" class="closeBtn">&times;</a>
+                <h2 class="list_title"><a class="list_title" href="#">Your chat rooms</a></h2>
+                <form class="room_query_form">
+                    <input type="text" name="room_query" class="room_add_bar" placeholder="Enter name of room" id="room_search_bar">
+                    <button type="submit" class="room_add_btn">Add</button>
+                </form>
+            </div>
             <ul class="chats"></ul>
         </div>
 
@@ -41,10 +46,10 @@
 
             <ul id="messages"></ul>
 
-            <form action="" class="messaging-form">
-                <input id="m-box" autocomplete="off" required></input>
+            <form action="" class="messaging-form" enctype="multipart/form-data" method="POST">
+                <input id="m-box" autocomplete="off"></input>
                 <button id="send-btn" type="submit" name="submit">Send</button>
-                <button id="location-btn">Check-In</button>
+                <input id="image-btn" type="file" name="image" placeholder="Image" accept="image/*"></input>
             </form>
 
             <div id="modal-alert" class="modal">
@@ -59,8 +64,8 @@
 
     <script src="/public/original/js/socket.io.js"></script>
     <script src="/public/original/js/queries.js"></script>
+    <script src="/public/original/js/utils.js"></script>
     <script src="/public/original/js/chat.js"></script>
-    <script type="text/javascript" src="/public/original/js/utils.js"></script>
 
     <script src="/public/original/js/moment.min.js"></script>
     <!-- <script src="/public/js/materialize.js"></script> -->

@@ -1,30 +1,16 @@
-const wholeBody = document.querySelector('.whole');
-const messageBox = document.querySelector('#messages');
-const sendBtn = document.querySelector('#send-btn');
-const locationBtn = document.querySelector('#location-btn');
-const modalAlert = document.querySelector('#modal-alert');
-const inputField = document.querySelector('#m-box');
-const chatTitle = document.querySelector('.menu');
-const chatsBox = document.querySelector('.chats');
-var number = 0;
-var sent;
-var myLocation;
-
 window.onload = async () => {
     loadRooms(username);
     await loadHistory(room);
     inputField.focus();
-    document.getElementById("overlay").style.display = "none";
-}
-
-function error () {
-    console.log('Could not retrieve location.');
-    throw new Error ('Could not retrieve location.');
+    await importRooms();
+    room_search_bar.value = '';
+    document.getElementById("overlay").style.display = 'none';
 }
 
 function addOverlay () {
-    document.getElementById('overlay-text').innerHTML = 'You are offline.\ '
-    'This page will be refreshed when network is established.';
+    document.getElementById('overlay-text').innerHTML = 'You are offline.\
+    This page will be refreshed when network is established.';
+    closeOverlay.style.display = 'none';
     document.getElementById('overlay').style.display = 'block';
 }
 
@@ -35,17 +21,6 @@ function resendAndRefresh () {
     //     }
     // }
     window.location.reload();
-}
-function getLocation () {
-    if (!navigator.geolocation) {
-        alert ('Browser does not support geolocation.');
-    }
-    else {
-        navigator.geolocation.getCurrentPosition((position) => {
-            return position;
-        },
-        error);
-    }
 }
 
 const loadHistory = async (room) => {
@@ -110,6 +85,7 @@ const getRooms = async (username) => {
 
     if (response.ok) {
         const json = await response.json();
+        allRooms = json.rooms;
         return json.rooms;
     }
     else {
@@ -117,13 +93,11 @@ const getRooms = async (username) => {
     }
 }
 
-const arrangeRooms = (allRooms) => {
+const arrangeRooms = (rooms) => {
     var room_ids = [];
     const appendToChatsBox = (item, index) => {
         var li = document.createElement('li');
         var a = document.createElement('a');
-
-        var url = 
 
         li.setAttribute('id', 'room_' + (index).toString());
         li.setAttribute('class', 'room-cont');
@@ -158,8 +132,16 @@ const arrangeRooms = (allRooms) => {
             });
         }
     }
-
-    allRooms.forEach(appendToChatsBox);
+    if (rooms.length <= 50) {
+        rooms.forEach(appendToChatsBox);
+    }
+    // else {
+    //     var i = 0;
+    //     while (i < 25) {
+    //         appendToChatsBox()
+    //     }
+    // }
+    
 }
 
 const addNewMessage = (message, date, username) => {
@@ -250,15 +232,6 @@ socket.on('receive message', (msgObject) => {
     document.querySelector('#receipt-' + number).scrollIntoView();
 });
 
-socket.on('receive location', (msgObject) => {
-    const latitude = location.coords.latitude;
-    const longitude = location.coords.longitude;
-
-    var link = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-
-    addNewMessage(link, printableTime(msgObject.timestamp));
-});
-
 socket.on('new member', ({username, room}) => {
     chatTitle.innerHTML = `${room} | ${username} has just joined.`;
     setTimeout(() => {
@@ -281,7 +254,8 @@ sendBtn.addEventListener('click', (e) => {
         username,
         msg,
         timestamp,
-        inRoom: room
+        inRoom: room,
+        image
     };
 
     console.log(room, msgObject.inRoom);
@@ -300,12 +274,6 @@ sendBtn.addEventListener('click', (e) => {
 
 window.addEventListener('offline', addOverlay);
 window.addEventListener('online', resendAndRefresh);
-
-locationBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    myLocation = getLocation();
-    if (myLocation) {socket.emit('send location', myLocation);}
-});
 
 // document.addEventListener('DOMContentLoaded', function() {
 //     var modals = document.querySelectorAll('.modal');

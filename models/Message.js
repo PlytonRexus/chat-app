@@ -21,6 +21,12 @@ const MessageSchema = new mongoose.Schema({
     sentAt: {
         type: Number,
         required: true
+    },
+    image: {
+        type: Buffer
+    },
+    format: {
+        type: String
     }
 },
 {
